@@ -1,10 +1,10 @@
 Package: quickmatch
 Type: Package
 Title: Quick Generalized Full Matching
-Version: 0.1.2
-Date: 2017-05-19
+Version: 0.1.3
+Date: 2018-07-21
 Authors@R: c(
-    person("Fredrik", "Savje", email = "fredrik.savje@berkeley.edu", role = c("aut", "cre")),
+    person("Fredrik", "Savje", email = "fredrik.savje@yale.edu", role = c("aut", "cre")),
     person("Jasjeet", "Sekhon", role = "aut"),
     person("Michael", "Higgins", role = "aut"))
 Description: 
@@ -13,7 +13,7 @@ Description:
     to situations with more intricate study designs. The package is made with
     large data sets in mind and derives matches more than an order of magnitude
     quicker than other methods.
-Depends: R (>= 3.2.3), distances
+Depends: R (>= 3.4.0), distances
 Imports: sandwich, scclust, stats
 Suggests: testthat
 NeedsCompilation: yes
@@ -22,10 +22,10 @@ URL: https://github.com/fsavje/quickmatch
 BugReports: https://github.com/fsavje/quickmatch/issues
 Encoding: UTF-8
 RoxygenNote: 6.0.1
-Packaged: 2017-05-20 02:39:57 UTC; fredrik
+Packaged: 2018-07-21 19:24:37 UTC; fredrik
 Author: Fredrik Savje [aut, cre],
   Jasjeet Sekhon [aut],
   Michael Higgins [aut]
-Maintainer: Fredrik Savje <fredrik.savje@berkeley.edu>
+Maintainer: Fredrik Savje <fredrik.savje@yale.edu>
 Repository: CRAN
-Date/Publication: 2017-05-20 07:10:51 UTC
+Date/Publication: 2018-07-21 21:50:10 UTC
