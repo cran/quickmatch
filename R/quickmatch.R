@@ -103,6 +103,24 @@
 #' \code{\link[scclust]{sc_clustering}} function (which is the default
 #' behavior).
 #'
+#' \code{quickmatch} calls \code{\link[scclust]{sc_clustering}} with
+#' \code{seed_method = "inwards_updating"}. The \code{seed_method} parameter
+#' governs how the seeds are selected in the nearest neighborhood graph that
+#' is used to construct the matched groups (see \code{\link[scclust]{sc_clustering}}
+#' for details). The \code{"inwards_updating"} option generally works well
+#' and is safe with most datasets. Using \code{seed_method = "exclusion_updating"}
+#' often leads to better performance (in the sense of matched groups with more
+#' similar units), but it may increase run time. Discrete data (or more generally
+#' when units tend to be at equal distance to many other units) will lead to
+#' particularly poor run time with this option. If the data set has at least one
+#' continuous covariate, \code{"exclusion_updating"} is typically reasonably
+#' quick. A third option is \code{seed_method = "lexical"}, which decreases the
+#' run time relative to \code{"inwards_updating"} (sometimes considerably) at
+#' the cost of performance. \code{quickmatch} passes parameters on to
+#' \code{\link[scclust]{sc_clustering}}, so to change \code{seed_method}, call
+#' \code{quickmatch} with the parameter specified as usual:
+#' \code{quickmatch(..., seed_method = "exclusion_updating")}.
+#'
 #' @param distances
 #'    \code{\link[distances]{distances}} object or a numeric vector, matrix
 #'    or data frame. The parameter describes the similarity of the units to be
@@ -243,11 +261,17 @@ quickmatch <- function(distances,
   if (!is.null(sc_call$primary_data_points)) {
     stop("`primary_data_points` is ignored, please use the `target` parameter instead.")
   }
+  if (is.null(sc_call$seed_method)) {
+    sc_call$seed_method <- "inwards_updating"
+  }
   if (is.null(sc_call$primary_unassigned_method)) {
     sc_call$primary_unassigned_method <- "closest_seed"
   }
   if (is.null(sc_call$secondary_unassigned_method)) {
+    secondary_unassigned_method_default <- TRUE
     sc_call$secondary_unassigned_method <- "closest_seed"
+  } else {
+    secondary_unassigned_method_default <- FALSE
   }
   if (is.null(sc_call$primary_radius)) {
     sc_call$primary_radius <- "seed_radius"
@@ -288,7 +312,22 @@ quickmatch <- function(distances,
   sc_call$type_constraints <- treatment_constraints
   sc_call$primary_data_points <- target
 
-  out_matching <- do.call(scclust::sc_clustering, sc_call)
+  out_matching <- tryCatch({
+    do.call(scclust::sc_clustering, sc_call)
+  },
+  error = function(x) {
+    if (grepl("\\(scclust:src/nng_clustering.c:[0-9]+\\) Infeasible radius constraint.", x$message)) {
+      if (secondary_unassigned_method_default) {
+        new_warning("Most seeds are at zero distance to their neighbors in the clustering NNG. This typically happens with discrete low-dimensional covariates. Consider using exact matching with such data. Running with `secondary_unassigned_method == \"ignore\"`.", level = -5)
+        sc_call$secondary_unassigned_method <- "ignore"
+        do.call(scclust::sc_clustering, sc_call)
+      } else {
+        new_error("** Error in scclust: ", x$message, "\n  ** Explanation of error: Most seeds are at zero distance to their neighbors in the clustering NNG. This typically happens with discrete low-dimensional covariates. Consider using exact matching with such data.", level = -5)
+      }
+    } else {
+      new_error("** Error in scclust: ", x$message, level = -5)
+    }
+  })
 
   class(out_matching) <- c("qm_matching", class(out_matching))
   out_matching
