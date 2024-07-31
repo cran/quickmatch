@@ -20,11 +20,9 @@
 
 #include <R_ext/Rdynload.h>
 #include "matching_weights.h"
-#include "utilities.h"
 
 static const R_CallMethodDef callMethods[] = {
 	{"qmc_matching_weights",       (DL_FUNC) &qmc_matching_weights,       5},
-	{"qmc_get_target_indicators",  (DL_FUNC) &qmc_get_target_indicators,  2},
 	{NULL,                         NULL,                                  0}
 };
 

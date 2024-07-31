@@ -87,27 +87,3 @@ test_that("`qmc_matching_weights` checks input.", {
   expect_warning(t_qmc_matching_weights(matching = qm_matching(c("A", "B", "A", "A", "B", NA, "B"))),
                  regexp = "Some units in target are unmatched. They will be ignored.")
 })
-
-
-# ==============================================================================
-# utilities.c
-# ==============================================================================
-
-t_qmc_get_target_indicators <- function(target_indicators = c(TRUE, FALSE, TRUE),
-                                        treatments = c(0L, 0L, 1L, 2L, 1L, 0L)) {
-  .Call(qmc_get_target_indicators,
-        target_indicators,
-        treatments)
-}
-
-test_that("`qmc_get_target_indicators` checks input.", {
-  expect_silent(t_qmc_get_target_indicators())
-  expect_error(t_qmc_get_target_indicators(target_indicators = letters[1:3]),
-               regexp = "`R_target` must be logical.")
-  expect_error(t_qmc_get_target_indicators(treatments = letters[1:6]),
-               regexp = "`R_treatments` must be integer.")
-  expect_error(t_qmc_get_target_indicators(treatments = c(0L, 0L, -1L, 2L, 1L, 0L)),
-               regexp = "Treatment out of bounds.")
-  expect_error(t_qmc_get_target_indicators(treatments = c(0L, 0L, 1L, 3L, 1L, 0L)),
-               regexp = "Treatment out of bounds.")
-})

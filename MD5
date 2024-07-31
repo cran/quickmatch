@@ -1,10 +1,10 @@
-dabec4b06b7f3b583061d466a458b78d *DESCRIPTION
+2ffeee62ef9999d2bff4c358dcccf98b *DESCRIPTION
 cc9b06f3067fb45e65e9ca9d1636a1ba *NAMESPACE
-098464e527edcaac5acaef47bec5ddf5 *NEWS.md
+6695f9d11db97df575d7ae7cff0355aa *NEWS.md
 edb35ec1c2c2163e04d3ba471c3d32a1 *R/covariate_averages.R
 8efbeefda52a5e2610d868da8bd82891 *R/covariate_balance.R
 50eaa1bb8388432323c1dff230d0611f *R/input_check.R
-8bb65913b5627400717f6f4337d7c8e3 *R/internal.R
+c889b0850bb4af01616ccbc72293b378 *R/internal.R
 1a40ee3bf5809f4615a43a0966bd9ce7 *R/lm_match.R
 f85430af16413336b11f2c6901921699 *R/matching_weights.R
 afdd85a23cf318a7fa049b941c685e6e *R/qm_matching.R
@@ -23,11 +23,9 @@ e646169fd05b707fd552c574d3da21fd *man/quickmatch.Rd
 f010d216b08a5ab895278797ea9da38d *src/error.h
 c57438ace87fd8f3abedfb5d0e783a50 *src/matching_weights.c
 aa6dbc13eb6ce56e200dd4995018e0b2 *src/matching_weights.h
-0e35004bc5889d0aa8d844622ce756a7 *src/quickmatch-init.c
-ba1ef4843d3fe121533cf12cc85b797e *src/utilities.c
-3e91f670c45c37e5f784b5f363f47ddd *src/utilities.h
+fcf9813cb1f119c8916353aa5491dd0c *src/quickmatch-init.c
 9ce9d1e8c8855bfdb6956737ca581141 *tests/testthat.R
-ebe52812fd84459b655c488d29c8858e *tests/testthat/test_c_errors.R
+7c59bb58c1e3f50b82845d4c0e9d4871 *tests/testthat/test_c_errors.R
 a3fcb9300c211b88ae201f29a3969399 *tests/testthat/test_covariate_averages.R
 44322f1fdab4b4230fefe6a3cd0c9ee2 *tests/testthat/test_covariate_balance.R
 03eaf11fd1962ad116c6bcd7179ce2d3 *tests/testthat/test_func_input_check.R

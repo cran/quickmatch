@@ -1,6 +1,11 @@
-# quickblock 0.2.2
+# quickmatch 0.2.3
   
-    * Use string literals when calling R internal function `error()` for error messaging.
+  * Update email address.
+
+
+# quickmatch 0.2.2
+  
+  * Use string literals when calling R internal function `error()` for error messaging.
 
 
 # quickmatch 0.2.1

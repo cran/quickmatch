@@ -28,16 +28,10 @@ get_target_indicators <- function(target,
             is.factor(treatments),
             all(target %in% levels(treatments)))
 
-  target_indicators <- rep(FALSE, nlevels(treatments))
-  names(target_indicators) <- levels(treatments)
-  target_indicators[target] <- TRUE
-
-  if (all(target_indicators)) {
-    return(NULL)
+  if (all(levels(treatments) %in% target)) {
+    NULL
   } else {
-    return(.Call(qmc_get_target_indicators,
-                 c(FALSE, target_indicators),
-                 unclass(treatments)))
+    which(treatments %in% target)
   }
 }
 
